@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practicar | ECOESPERANZA</title>
+
+  <style>
+    /* ===== VARIABLES DE LA PALETA AZUL ===== */
+    :root {
+      --azul-oscuro: #0d3b66;
+      --azul: #1565c0;
+      --azul-medio: #2196f3;
+      --azul-claro: #bbdefb;
+      --azul-fondo: #eef6fd;
+      --acento: #00b4d8;
+      --texto: #14233a;
+      --blanco: #ffffff;
+      --sombra: 0 6px 18px rgba(13, 59, 102, .18);
+    }
+
+    /* ===== ESTILOS BASE ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+      background: var(--azul-fondo);
+      color: var(--texto);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    iframe { max-width: 100%; display: block; }
+
+    /* ===== ENCABEZADO Y NAVEGACIÓN ===== */
+    header {
+      background: linear-gradient(135deg, var(--azul-oscuro), var(--azul));
+      color: var(--blanco);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--sombra);
+    }
+    .barra {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; }
+    .logo span { color: #90caf9; }
+    nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+    nav a {
+      display: block;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: background .25s;
+    }
+    nav a:hover { background: rgba(255, 255, 255, .2); }
+    nav a.activo { background: var(--blanco); color: var(--azul-oscuro); }
+
+    /* ===== PORTADA DE LA PÁGINA ===== */
+    .portada {
+      text-align: center;
+      padding: 50px 20px 40px;
+      background: linear-gradient(180deg, var(--azul-claro), var(--azul-fondo));
+    }
+    .portada h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--azul-oscuro); }
+    .portada p { max-width: 700px; margin: 12px auto 22px; font-size: 1.1rem; }
+
+    /* ===== BOTONES ===== */
+    .btn-vermas {
+      display: inline-block;
+      background: var(--azul);
+      color: var(--blanco);
+      padding: 12px 34px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: var(--sombra);
+      transition: background .25s, transform .2s;
+    }
+    .btn-vermas:hover { background: var(--azul-oscuro); transform: translateY(-2px); }
+    .btn-vermas:focus-visible { outline: 3px solid var(--acento); outline-offset: 3px; }
+
+    /* ===== CONTENEDOR Y ACTIVIDADES ===== */
+    main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    .titulo-actividades {
+      text-align: center;
+      color: var(--azul-oscuro);
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      margin: 10px 0 24px;
+      scroll-margin-top: 90px;
+    }
+    section.actividad {
+      background: var(--blanco);
+      border-radius: 20px;
+      box-shadow: var(--sombra);
+      padding: 32px;
+      margin-bottom: 40px;
+      border-top: 8px solid var(--azul-medio);
+      scroll-margin-top: 90px;
+    }
+    section.actividad h2 {
+      color: var(--azul-oscuro);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 12px;
+    }
+    section.actividad p { margin-bottom: 18px; }
+
+    /* ===== MARCO DE LOS RECURSOS INTERACTIVOS ===== */
+    .recurso {
+      border: 3px solid var(--azul-claro);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--azul-fondo);
+    }
+    .recurso iframe { width: 100%; height: 620px; border: 0; }
+    .recurso.genially iframe { height: 560px; }
+    .nota-recurso { margin: 12px 0 0; font-size: .9rem; text-align: right; }
+    .nota-recurso a { color: var(--azul); font-weight: 600; text-decoration: underline; }
+
+    /* ===== NAVEGACIÓN INFERIOR (CONOCER / EVALUAR) ===== */
+    .siguiente {
+      text-align: center;
+      background: var(--azul-oscuro);
+      color: var(--blanco);
+      border-radius: 20px;
+      padding: 32px 20px;
+      margin-bottom: 40px;
+    }
+    .siguiente h2 { margin-bottom: 8px; }
+    .siguiente .botones { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 18px; }
+    .siguiente a {
+      background: var(--blanco); color: var(--azul-oscuro);
+      padding: 12px 32px; border-radius: 999px; font-weight: 700;
+      transition: transform .2s, background .2s;
+    }
+    .siguiente a:hover { background: var(--azul-claro); transform: translateY(-2px); }
+
+    /* ===== PIE DE PÁGINA ===== */
+    footer {
+      text-align: center; padding: 20px;
+      background: var(--azul-oscuro); color: #bbdefb; font-size: .9rem;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 640px) {
+      .barra { justify-content: center; }
+      section.actividad { padding: 20px 14px; }
+      .recurso iframe { height: 480px; }
+      .recurso.genially iframe { height: 440px; }
+      .nota-recurso { text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ENCABEZADO: logo y menú de navegación del OVA -->
+  <header>
+    <div class="barra">
+      <div class="logo">ECO<span>ESPERANZA</span> 💧</div>
+      <nav aria-label="Navegación principal del OVA">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="conocer.html">Conocer</a></li>
+          <li><a href="practicar.html" class="activo" aria-current="page">Practicar</a></li>
+          <li><a href="evaluar.html">Evaluar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PORTADA: título, presentación y botón VER MÁS hacia las actividades prácticas -->
+  <div class="portada">
+    <h1>🎮 Practicar</h1>
+    <p>Es hora de poner en práctica lo que aprendiste. Juega, supera retos y participa en
+       actividades dinámicas para convertirte en un verdadero protector del planeta.</p>
+    <a href="#actividades" class="btn-vermas">VER MÁS</a>
+  </div>
+
+  <main>
+
+    <!-- APARTADO DE ACTIVIDADES PRÁCTICAS (destino del botón VER MÁS) -->
+    <h2 class="titulo-actividades" id="actividades">Actividades prácticas</h2>
+
+    <!-- Juegos Educativos -->
+    <section class="actividad" id="juegos">
+      <h2>🧩 Juegos Educativos</h2>
+      <p>
+        Los juegos interactivos son una forma divertida de reforzar lo aprendido. Aquí podrás relacionar
+        conceptos, tomar decisiones y descubrir cómo proteger el medio ambiente mientras te diviertes.
+        ¡Lee bien las instrucciones y busca la mejor puntuación!
+      </p>
+      <div class="recurso">
+        <iframe src="https://es.educaplay.com/recursos-educativos/31285440-relaciona_y_protege.html"
+                title="Juego educativo: Relaciona y protege"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="nota-recurso">¿No carga? <a href="https://es.educaplay.com/recursos-educativos/31285440-relaciona_y_protege.html" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.</p>
+    </section>
+    <section class="actividad" id="juegos">
+      <h2>🧩 Juegos Educativos</h2>
+      <p>
+        Los juegos interactivos son una forma divertida de reforzar lo aprendido. Aquí podrás relacionar
+        conceptos, tomar decisiones y descubrir cómo proteger el medio ambiente mientras te diviertes.
+        ¡Lee bien las instrucciones y busca la mejor puntuación!
+      </p>
+      <div class="recurso">
+        <iframe src="https://es.educaplay.com/juego/30524765-ecoesperanza_reciclaje_y_consumo_responsable.html"
+                title="Juego educativo: preguntas de seleccion multiple"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="nota-recurso">¿No carga? <a href="https://es.educaplay.com/juego/30524765-ecoesperanza_reciclaje_y_consumo_responsable.html" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.</p>
+    </section>
+
+    <!-- Retos Ambientales -->
+    <section class="actividad" id="retos">
+      <h2>🌊 Retos Ambientales</h2>
+      <p>
+        Los retos te ayudan a aplicar tus conocimientos en situaciones prácticas. Con esta sopa de letras
+        ambiental pondrás a prueba tu vocabulario y recordarás los conceptos clave sobre el cuidado del planeta.
+        ¡Encuentra todas las palabras!
+      </p>
+      <div class="recurso">
+        <iframe src="https://es.educaplay.com/recursos-educativos/30525310-reto_ecoesperanza_sopa_ambiental.html"
+                title="Reto ECOESPERANZA: Sopa ambiental"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="nota-recurso">¿No carga? <a href="https://es.educaplay.com/recursos-educativos/30525310-reto_ecoesperanza_sopa_ambiental.html" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.</p>
+    </section>
+     <section class="actividad" id="retos">
+      <h2>🌊 Retos Ambientales</h2>
+      <p>
+        Los retos te ayudan a aplicar tus conocimientos en situaciones prácticas. Con esta sopa de letras
+        ambiental pondrás a prueba tu vocabulario y recordarás los conceptos clave sobre el cuidado del planeta.
+        ¡Encuentra todas las palabras!
+      </p>
+      <div class="recurso">
+        <iframe src="https://view.genially.com/6ade21285de57150e7108342"
+                title="Reto ECOESPERANZA:descubre donde vive cada especie"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="nota-recurso">¿No carga? <a href="https://view.genially.com/6ade21285de57150e7108342" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.</p>
+    </section>
+
+    <!-- Actividades Dinámicas -->
+    <section class="actividad" id="dinamicas">
+      <h2>🌐 Actividades Dinámicas</h2>
+      <p>
+        Estas actividades fomentan la participación activa: explora, interactúa y responde a cada propuesta
+        para construir tu aprendizaje paso a paso y compartir tus ideas para cuidar el ambiente.
+      </p>
+      <div class="recurso genially">
+        <iframe src="https://view.genially.com/6aaaca0f40eba103cd8713d2"
+                title="Actividades dinámicas ECOESPERANZA"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="nota-recurso">¿No carga? <a href="https://view.genially.com/6aaaca0f40eba103cd8713d2" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.</p>
+    </section>
+    <section class="actividad" id="dinamicas">
+      <h2>🌐 Actividades Dinámicas</h2>
+      <p>
+        Estas actividades fomentan la participación activa: explora, interactúa y responde a cada propuesta
+        para construir tu aprendizaje paso a paso y compartir tus ideas para cuidar el ambiente.
+      </p>
+      <div class="recurso genially">
+        <iframe src="https://view.genially.com/6ae0d8c9c6e2e573ec6f8a09"
+                title="Actividades dinámicas ECOESPERANZA"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="nota-recurso">¿No carga? <a href="https://view.genially.com/6ae0d8c9c6e2e573ec6f8a09" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.</p>
+    </section>
+
+
+    <!-- CONTINUAR EN EL OVA: enlaces a Conocer y Evaluar -->
+    <section class="siguiente">
+      <h2>¡Buen trabajo! 🌟</h2>
+      <p>Repasa los contenidos o demuestra todo lo que aprendiste.</p>
+      <div class="botones">
+        <a href="conocer.html">◀ Volver a Conocer</a>
+        <a href="evaluar.html">Ir a Evaluar ✔</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    ECOESPERANZA · Objeto Virtual de Aprendizaje · Cuidemos el planeta 💧
+  </footer>
+
+</body>
+</html>

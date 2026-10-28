@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conocer | ECOESPERANZA</title>
+
+  <style>
+    /* ===== VARIABLES DE LA PALETA VERDE ===== */
+    :root {
+      --verde-oscuro: #1b4d2e;
+      --verde: #2e7d32;
+      --verde-medio: #4caf50;
+      --verde-claro: #c8e6c9;
+      --verde-fondo: #f1f8e9;
+      --tierra: #8d6e63;
+      --texto: #1f2d24;
+      --blanco: #ffffff;
+      --sombra: 0 6px 18px rgba(27, 77, 46, .15);
+    }
+
+    /* ===== ESTILOS BASE ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+      background: var(--verde-fondo);
+      color: var(--texto);
+      line-height: 1.7;
+    }
+    img, iframe { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== ENCABEZADO Y NAVEGACIÓN ===== */
+    header {
+      background: linear-gradient(135deg, var(--verde-oscuro), var(--verde));
+      color: var(--blanco);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--sombra);
+    }
+    .barra {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; }
+    .logo span { color: #a5d6a7; }
+    nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+    nav a {
+      display: block;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: background .25s;
+    }
+    nav a:hover { background: rgba(255, 255, 255, .2); }
+    nav a.activo { background: var(--blanco); color: var(--verde-oscuro); }
+
+    /* ===== PORTADA DE LA PÁGINA ===== */
+    .portada {
+      text-align: center;
+      padding: 50px 20px 40px;
+      background: linear-gradient(180deg, var(--verde-claro), var(--verde-fondo));
+    }
+    .portada h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--verde-oscuro); }
+    .portada p { max-width: 700px; margin: 12px auto 0; font-size: 1.1rem; }
+
+    /* Índice rápido a los temas */
+    .indice {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 12px; margin-top: 24px;
+    }
+    .indice a {
+      background: var(--verde); color: var(--blanco);
+      padding: 10px 22px; border-radius: 999px; font-weight: 600;
+      transition: transform .2s, background .2s;
+    }
+    .indice a:hover { background: var(--verde-oscuro); transform: translateY(-2px); }
+
+    /* ===== CONTENEDOR Y SECCIONES ===== */
+    main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    section.tema {
+      background: var(--blanco);
+      border-radius: 20px;
+      box-shadow: var(--sombra);
+      padding: 32px;
+      margin-bottom: 40px;
+      border-top: 8px solid var(--verde-medio);
+    }
+    section.tema h2 {
+      color: var(--verde-oscuro);
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      margin-bottom: 14px;
+    }
+    section.tema h3 { color: var(--verde); margin: 20px 0 8px; }
+    section.tema p { margin-bottom: 14px; text-align: justify; }
+
+    /* ===== GALERÍA DE IMÁGENES ===== */
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin: 24px 0;
+    }
+    figure {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--verde-claro);
+      box-shadow: var(--sombra);
+      min-height: 220px;
+    }
+    /* Marcador que se ve si la imagen aún no existe */
+    figure .marcador {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 16px; text-align: center;
+      color: var(--verde-oscuro); font-size: .95rem;
+    }
+    figure .marcador b { font-size: 2.4rem; }
+    figure img {
+      position: relative;
+      width: 100%; height: 100%;
+      min-height: 220px;
+      object-fit: cover;
+      transition: transform .4s;
+    }
+    figure:hover img { transform: scale(1.05); }
+    figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      background: rgba(27, 77, 46, .85);
+      color: var(--blanco);
+      font-size: .85rem; padding: 6px 10px;
+    }
+
+    /* ===== VIDEO RESPONSIVO (16:9) ===== */
+    .video {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--sombra);
+      margin: 24px 0;
+      background: #000;
+    }
+    .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* ===== BOTÓN VER MÁS Y CONTENIDO DETALLADO ===== */
+    .btn-vermas {
+      display: inline-block;
+      background: var(--verde);
+      color: var(--blanco);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: var(--sombra);
+      transition: background .25s, transform .2s;
+    }
+    .btn-vermas:hover { background: var(--verde-oscuro); transform: translateY(-2px); }
+    .btn-vermas:focus-visible { outline: 3px solid #a5d6a7; outline-offset: 3px; }
+    .detalle {
+      display: none;
+      margin-top: 20px;
+      padding: 20px 24px;
+      background: var(--verde-fondo);
+      border-left: 6px solid var(--verde-medio);
+      border-radius: 10px;
+    }
+    .detalle.abierto { display: block; animation: aparecer .4s ease; }
+    .detalle ul { margin: 0 0 12px 22px; }
+    @keyframes aparecer { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* ===== NAVEGACIÓN INFERIOR (PRACTICAR / EVALUAR) ===== */
+    .siguiente {
+      text-align: center;
+      background: var(--verde-oscuro);
+      color: var(--blanco);
+      border-radius: 20px;
+      padding: 32px 20px;
+      margin-bottom: 40px;
+    }
+    .siguiente h2 { margin-bottom: 8px; }
+    .siguiente .botones { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 18px; }
+    .siguiente a {
+      background: var(--blanco); color: var(--verde-oscuro);
+      padding: 12px 32px; border-radius: 999px; font-weight: 700;
+      transition: transform .2s, background .2s;
+    }
+    .siguiente a:hover { background: var(--verde-claro); transform: translateY(-2px); }
+
+    /* ===== PIE DE PÁGINA ===== */
+    footer {
+      text-align: center; padding: 20px;
+      background: var(--verde-oscuro); color: #c8e6c9; font-size: .9rem;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 640px) {
+      .barra { justify-content: center; }
+      section.tema { padding: 20px 16px; }
+      section.tema p { text-align: left; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ENCABEZADO: logo y menú de navegación del OVA -->
+  <header>
+    <div class="barra">
+      <div class="logo">ECO<span>ESPERANZA</span> 🌿</div>
+      <nav aria-label="Navegación principal del OVA">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="conocer.html" class="activo" aria-current="page">Conocer</a></li>
+          <li><a href="practicar.html">Practicar</a></li>
+          <li><a href="evaluar.html">Evaluar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PORTADA: título de la página e índice rápido -->
+  <div class="portada">
+    <h1>🌎 Conocer</h1>
+    <p>Descubre cómo funciona nuestro planeta, quiénes lo habitan y qué amenazas enfrenta.
+       Explora cada tema, mira los videos y amplía la información con el botón <strong>VER MÁS</strong>.</p>
+    <div class="indice">
+      <a href="#cambio-climatico">Cambio Climático</a>
+      <a href="#fauna-flora">Fauna y Flora</a>
+      <a href="#contaminacion">Contaminación</a>
+      <a href="#separacion-residuos">Separación de Residuos</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Cambio Climático -->
+    <section class="tema" id="cambio-climatico">
+      <h2>🌡️ Cambio Climático</h2>
+      <p>
+        El cambio climático es la alteración a largo plazo de las temperaturas y de los patrones del clima
+        en todo el planeta. Aunque puede tener causas naturales, desde el siglo XIX la principal causa es la
+        actividad humana, sobre todo la quema de petróleo, carbón y gas, que libera gases de efecto invernadero
+        como el dióxido de carbono (CO₂) y el metano (CH₄). Estos gases atrapan el calor del Sol en la atmósfera
+        y provocan el calentamiento global.
+      </p>
+      <p>
+        Sus consecuencias ya se sienten: derretimiento de glaciares y de los polos, aumento del nivel del mar,
+        sequías e incendios más intensos, lluvias e inundaciones extremas, pérdida de cosechas y riesgo de extinción
+        para muchas especies, como el oso polar, que pierde el hielo donde caza y vive.
+      </p>
+
+      <!-- Imágenes del tema Cambio Climático -->
+      <div class="galeria">
+        <figure>
+          <div class="marcador"><b>🐻‍❄️</b>Oso polar sobre el planeta</div>
+          <img src="img/osopolarplaneta.jpeg" alt="Oso polar sobre el planeta Tierra" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>El hielo del que dependen los osos polares se reduce cada año.</figcaption>
+        </figure>
+        <figure>
+          <div class="marcador"><b>🌍</b>Caricatura de la Tierra derritiéndose</div>
+          <img src="img/tierraderritiendose.jpeg" alt="Caricatura de la Tierra derritiéndose por el calor" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>El calentamiento global "derrite" nuestro hogar.</figcaption>
+        </figure>
+        <figure>
+          <div class="marcador"><b>🔥❄️</b>Planeta dividido: calor vs normalidad</div>
+          <img src="img/tierracalorfrio.jpeg" alt="Planeta dividido en dos mitades: una con calor extremo y otra en condiciones normales" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>Dos futuros posibles: depende de nuestras acciones.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Video del tema Cambio Climático -->
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/K7MzGe6OSs0" title="Video sobre el cambio climático"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+
+      <!-- Botón VER MÁS con contenido detallado -->
+      <button class="btn-vermas" aria-expanded="false" aria-controls="detalle-clima">VER MÁS</button>
+      <div class="detalle" id="detalle-clima">
+        <h3>Causas principales</h3>
+        <ul>
+          <li>Quema de combustibles fósiles (transporte, industria y energía).</li>
+          <li>Deforestación: menos árboles significan menos CO₂ absorbido.</li>
+          <li>Ganadería intensiva y agricultura, que emiten metano y óxido nitroso.</li>
+        </ul>
+        <h3>Consecuencias</h3>
+        <ul>
+          <li>Deshielo de glaciares y aumento del nivel del mar.</li>
+          <li>Fenómenos extremos: olas de calor, sequías, huracanes e inundaciones.</li>
+          <li>Pérdida de biodiversidad y amenaza a la seguridad alimentaria.</li>
+        </ul>
+        <h3>¿Qué puedo hacer?</h3>
+        <p>Ahorrar energía, usar transporte sostenible, consumir de forma responsable, sembrar árboles y compartir lo aprendido.</p>
+      </div>
+    </section>
+
+    <!-- Fauna y Flora -->
+    <section class="tema" id="fauna-flora">
+      <h2>🦜 Fauna y Flora</h2>
+      <p>
+        La fauna es el conjunto de animales de un lugar y la flora es el conjunto de plantas. Juntas forman la
+        biodiversidad, es decir, la variedad de vida que existe en la Tierra. Colombia es uno de los países más
+        biodiversos del mundo, con selvas, páramos, arrecifes, humedales y montañas donde viven miles de especies.
+      </p>
+      <p>
+        La biodiversidad es esencial: las plantas producen el oxígeno que respiramos, los insectos polinizan
+        nuestros cultivos, los bosques regulan el agua y el clima, y los ecosistemas nos brindan alimentos,
+        medicinas y bienestar. Cuando desaparece una especie, se rompe un eslabón de la cadena de la vida.
+      </p>
+
+      <!-- Imágenes del tema Fauna y Flora -->
+      <div class="galeria">
+        <figure>
+          <div class="marcador"><b>🦜</b>Guacamayos en la selva tropical</div>
+          <img src="img/guacamalloselva.jpeg" alt="Guacamayos de colores en la selva tropical" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>Los guacamayos dispersan semillas y mantienen sano el bosque.</figcaption>
+        </figure>
+        <figure>
+          <div class="marcador"><b>🐢</b>Tortuga marina en arrecife de coral</div>
+          <img src="img/tortugasmar.jpeg" alt="Tortuga marina nadando en un arrecife de coral" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>Los arrecifes de coral son hogar de miles de especies marinas.</figcaption>
+        </figure>
+        <figure>
+          <div class="marcador"><b>🐆</b>Collage: jaguar, aves y reptiles</div>
+          <img src="img/biodiversidad.jpeg" alt="Collage de animales de la selva: jaguar, aves y reptiles" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>Cada animal cumple una función en su ecosistema.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Video del tema Fauna y Flora -->
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/jsxINjfZj18" title="Video sobre fauna y flora"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+
+      <!-- Botón VER MÁS con contenido detallado -->
+      <button class="btn-vermas" aria-expanded="false" aria-controls="detalle-fauna">VER MÁS</button>
+      <div class="detalle" id="detalle-fauna">
+        <h3>¿Por qué es importante la biodiversidad?</h3>
+        <ul>
+          <li>Mantiene el equilibrio de los ecosistemas y las cadenas alimentarias.</li>
+          <li>Aporta alimentos, madera, fibras y medicinas.</li>
+          <li>Regula el clima, purifica el agua y protege el suelo.</li>
+        </ul>
+        <h3>Principales amenazas</h3>
+        <ul>
+          <li>Deforestación y pérdida de hábitat.</li>
+          <li>Tráfico ilegal de fauna y flora.</li>
+          <li>Contaminación y cambio climático.</li>
+        </ul>
+        <h3>¿Cómo protegerla?</h3>
+        <p>No comprar animales silvestres, respetar las áreas protegidas, sembrar plantas nativas y cuidar los ríos, bosques y mares.</p>
+      </div>
+    </section>
+
+    <!-- Contaminación -->
+    <section class="tema" id="contaminacion">
+      <h2>🏭 Contaminación</h2>
+      <p>
+        La contaminación es la presencia de sustancias o energías dañinas en el ambiente que afectan la salud de
+        los seres vivos y el equilibrio de los ecosistemas. Existen varios tipos, y los más comunes son:
+      </p>
+      <p>
+        <strong>Contaminación del aire:</strong> humo de fábricas y vehículos, quema de basura y gases tóxicos que
+        causan enfermedades respiratorias y aceleran el calentamiento global.<br>
+        <strong>Contaminación del agua:</strong> vertido de residuos, químicos, aceites y plásticos en ríos, lagos y
+        mares, que envenena la vida acuática y reduce el agua potable.<br>
+        <strong>Contaminación del suelo:</strong> acumulación de basura, pesticidas y desechos industriales que
+        vuelven infértil la tierra y contaminan los alimentos.
+      </p>
+
+      <!-- Imágenes del tema Contaminación -->
+      <div class="galeria">
+        <figure>
+          <div class="marcador"><b>🏚️</b>Animales observando una ciudad destruida</div>
+          <img src="img/animalesdecepcionados.jpeg" alt="Animales observando una ciudad destruida" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>La naturaleza también es víctima de nuestras decisiones.</figcaption>
+        </figure>
+        <figure>
+          <div class="marcador"><b>🏭</b>Paisaje industrial con humo y basura</div>
+          <img src="img/industria.jpeg" alt="Paisaje industrial con humo y basura" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>Humo y residuos deterioran el aire, el agua y el suelo.</figcaption>
+        </figure>
+        <figure>
+          <div class="marcador"><b>😷</b>Joven con máscara y chimeneas en la cabeza</div>
+          <img src="img/jovencontaminado.jpeg" alt="Ilustración de un joven con máscara y chimeneas en la cabeza" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>La contaminación afecta nuestra salud y nuestro futuro.</figcaption>
+        </figure>
+        <figure>
+          <div class="marcador"><b>😢</b>La Tierra triste rodeada de contaminación</div>
+          <img src="img/tierratriste.jpeg" alt="Caricatura de la Tierra triste rodeada de escenas de contaminación" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>Nuestro planeta necesita que lo cuidemos.</figcaption>
+        </figure>
+        <figure>
+          <div class="marcador"><b>🤲</b>Manos sosteniendo el planeta entre basura y fábricas</div>
+          <img src="img/planeta en mal estado.jpeg" alt="Manos sosteniendo el planeta rodeado de basura y fábricas" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>El futuro del planeta está en nuestras manos.</figcaption>
+        </figure>
+        <figure>
+          <div class="marcador"><b>🗑️</b>Basura que inunda el mundo</div>
+          <img src="img/basura.jpeg" alt="Basura en todo lado e industria" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>De nosotros depende que esta sea la vista de las futuras generaciones.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Video del tema Contaminación -->
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/zeLIGu8l9OY" title="Video sobre la contaminación"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+
+      <!-- Botón VER MÁS con contenido detallado -->
+      <button class="btn-vermas" aria-expanded="false" aria-controls="detalle-contaminacion">VER MÁS</button>
+      <div class="detalle" id="detalle-contaminacion">
+        <h3>Fuentes de contaminación</h3>
+        <ul>
+          <li>Industria, transporte y quema de combustibles.</li>
+          <li>Residuos domésticos y plásticos de un solo uso.</li>
+          <li>Uso excesivo de agroquímicos y minería ilegal.</li>
+        </ul>
+        <h3>Efectos</h3>
+        <ul>
+          <li>Enfermedades respiratorias, de la piel y del sistema digestivo.</li>
+          <li>Muerte de especies y degradación de ecosistemas.</li>
+          <li>Escasez de agua limpia y suelos infértiles.</li>
+        </ul>
+        <h3>Las 3R para actuar</h3>
+        <p><strong>Reducir</strong> el consumo, <strong>Reutilizar</strong> los objetos y <strong>Reciclar</strong> los materiales. Separar los residuos y evitar los plásticos desechables son gestos que sí marcan la diferencia.</p>
+      </div>
+    </section>
+
+    <!-- Separación de Residuos -->
+    <section class="tema" id="separacion-residuos">
+      <h2>♻️ Separación de Residuos</h2>
+      <p>
+        El Ministerio de Ambiente y Desarrollo Sostenible mediante la Resolución No. 2184 de 2019 estableció un código de colores unificado para separar residuos en Colombia, que rige desde el 1.º de enero de 2021.
+      </p>
+
+      <!-- Galería con la imagen del código de colores -->
+      <div class="galeria">
+        <figure>
+          <div class="marcador"><b>♻️</b>Código de colores para la separación de residuos</div>
+          <img src="img/separacionresiduos.jpeg" alt="Código de colores para la separación de residuos en Colombia" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>Código unificado para la separación de residuos a nivel nacional.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Video del tema Separación de Residuos -->
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/wlsXGwu4Mt8"
+                title="Video sobre la separación de residuos"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+
+      <!-- Botón VER MÁS con detalles del código de colores y el programa -->
+      <button class="btn-vermas" aria-expanded="false" aria-controls="detalle-residuos">VER MÁS</button>
+      <div class="detalle" id="detalle-residuos">
+        <h3>Código de Colores Unificado</h3>
+        <ul>
+          <li>🟢 <strong>Verde - Residuos orgánicos aprovechables:</strong> restos de comida, desechos agrícolas.</li>
+          <li>⚪ <strong>Blanco - Residuos aprovechables:</strong> plástico, vidrio, metales, papel y cartón.</li>
+          <li>⚫ <strong>Negro - Residuos no aprovechables:</strong> papel higiénico, servilletas, papeles contaminados, papel metalizado, entre otros.</li>
+        </ul>
+        <h3>Uso Racional de Bolsas Plásticas</h3>
+        <p>
+          Además, se adoptó el Formato Único Nacional para el Programa de Uso Racional de Bolsas Plásticas, con el fin de fomentar la cultura del cuidado del medio ambiente en todo el país.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTINUAR EN EL OVA: enlaces a Practicar y Evaluar -->
+    <section class="siguiente">
+      <h2>¡Ya conoces lo esencial! 🌱</h2>
+      <p>Ahora pon a prueba lo aprendido.</p>
+      <div class="botones">
+        <a href="practicar.html">Ir a Practicar ▶</a>
+        <a href="evaluar.html">Ir a Evaluar ✔</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    ECOESPERANZA · Objeto Virtual de Aprendizaje · Cuidemos el planeta 🌿
+  </footer>
+
+  <!-- SCRIPT: muestra u oculta el contenido detallado del botón VER MÁS -->
+  <script>
+    document.querySelectorAll('.btn-vermas').forEach(function (boton) {
+      boton.addEventListener('click', function () {
+        var panel = document.getElementById(boton.getAttribute('aria-controls'));
+        var abierto = panel.classList.toggle('abierto');
+        boton.setAttribute('aria-expanded', abierto);
+        boton.textContent = abierto ? 'VER MENOS' : 'VER MÁS';
+      });
+    });
+  </script>
+
+</body>
+</html>

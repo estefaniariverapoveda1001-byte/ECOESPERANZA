@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluar | ECOESPERANZA</title>
+
+  <style>
+    /* ===== VARIABLES DE LA PALETA NARANJA ===== */
+    :root {
+      --naranja-oscuro: #b34700;
+      --naranja: #f57c00;
+      --naranja-medio: #ff9800;
+      --naranja-claro: #ffe0b2;
+      --naranja-fondo: #fff8ef;
+      --acento: #ffb74d;
+      --texto: #33230f;
+      --blanco: #ffffff;
+      --sombra: 0 6px 18px rgba(179, 71, 0, .18);
+    }
+
+    /* ===== ESTILOS BASE ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+      background: var(--naranja-fondo);
+      color: var(--texto);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    iframe { max-width: 100%; display: block; }
+
+    /* ===== ENCABEZADO Y NAVEGACIÓN ===== */
+    header {
+      background: linear-gradient(135deg, var(--naranja-oscuro), var(--naranja));
+      color: var(--blanco);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--sombra);
+    }
+    .barra {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; }
+    .logo span { color: #ffe0b2; }
+    nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+    nav a {
+      display: block;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: background .25s;
+    }
+    nav a:hover { background: rgba(255, 255, 255, .22); }
+    nav a.activo { background: var(--blanco); color: var(--naranja-oscuro); }
+
+    /* ===== PORTADA DE LA PÁGINA ===== */
+    .portada {
+      text-align: center;
+      padding: 50px 20px 40px;
+      background: linear-gradient(180deg, var(--naranja-claro), var(--naranja-fondo));
+    }
+    .portada h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--naranja-oscuro); }
+    .portada p { max-width: 700px; margin: 12px auto 22px; font-size: 1.1rem; }
+
+    /* Índice rápido a las dos secciones */
+    .indice { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .indice a {
+      background: var(--naranja);
+      color: var(--blanco);
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      box-shadow: var(--sombra);
+      transition: transform .2s, background .2s;
+    }
+    .indice a:hover { background: var(--naranja-oscuro); transform: translateY(-2px); }
+
+    /* ===== CONTENEDOR Y SECCIONES ===== */
+    main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    section.evaluacion {
+      background: var(--blanco);
+      border-radius: 20px;
+      box-shadow: var(--sombra);
+      padding: 32px;
+      margin-bottom: 40px;
+      border-top: 8px solid var(--naranja-medio);
+      scroll-margin-top: 90px;
+    }
+    section.evaluacion h2 {
+      color: var(--naranja-oscuro);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 12px;
+    }
+    section.evaluacion p { margin-bottom: 18px; }
+
+    /* Recuadro con recomendaciones antes de responder */
+    .consejo {
+      background: var(--naranja-fondo);
+      border-left: 6px solid var(--naranja-medio);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: .95rem;
+    }
+
+    /* ===== MARCO DE LOS FORMULARIOS ===== */
+    .formulario {
+      border: 3px solid var(--naranja-claro);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--naranja-fondo);
+    }
+    .formulario iframe { width: 100%; height: 900px; border: 0; }
+    .nota-recurso { margin: 12px 0 0; font-size: .9rem; text-align: right; }
+    .nota-recurso a { color: var(--naranja-oscuro); font-weight: 600; text-decoration: underline; }
+
+    /* ===== NAVEGACIÓN INFERIOR (CONOCER / PRACTICAR) ===== */
+    .siguiente {
+      text-align: center;
+      background: var(--naranja-oscuro);
+      color: var(--blanco);
+      border-radius: 20px;
+      padding: 32px 20px;
+      margin-bottom: 40px;
+    }
+    .siguiente h2 { margin-bottom: 8px; }
+    .siguiente .botones { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 18px; }
+    .siguiente a {
+      background: var(--blanco);
+      color: var(--naranja-oscuro);
+      padding: 12px 32px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform .2s, background .2s;
+    }
+    .siguiente a:hover { background: var(--naranja-claro); transform: translateY(-2px); }
+
+    /* ===== PIE DE PÁGINA ===== */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: var(--naranja-oscuro);
+      color: #ffe0b2;
+      font-size: .9rem;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 640px) {
+      .barra { justify-content: center; }
+      section.evaluacion { padding: 20px 14px; }
+      .formulario iframe { height: 750px; }
+      .nota-recurso { text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ENCABEZADO: logo y menú de navegación del OVA -->
+  <header>
+    <div class="barra">
+      <div class="logo">ECO<span>ESPERANZA</span> 🍊</div>
+      <nav aria-label="Navegación principal del OVA">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="conocer.html">Conocer</a></li>
+          <li><a href="practicar.html">Practicar</a></li>
+          <li><a href="evaluar.html" class="activo" aria-current="page">Evaluar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PORTADA: título, presentación e índice rápido a las dos evaluaciones -->
+  <div class="portada">
+    <h1>📝 Evaluar</h1>
+    <p>Llegó el momento de comprobar lo que aprendiste y de contarnos cómo fue tu experiencia
+       con el OVA. ¡Tu opinión nos ayuda a mejorar!</p>
+    <div class="indice">
+      <a href="#quiz">Quiz de Conocimientos</a>
+      <a href="#satisfaccion">Cuestionario de Satisfacción</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Quiz de Conocimientos -->
+    <section class="evaluacion" id="quiz">
+      <h2>🌱 Quiz de Conocimientos Ambientales</h2>
+      <p>
+        En este quiz debes responder una serie de preguntas para comprobar lo que aprendiste en los módulos
+        <strong>Conocer</strong> y <strong>Practicar</strong>. Lee con atención cada pregunta, elige la
+        respuesta que consideres correcta y envía el formulario al finalizar.
+      </p>
+      <div class="consejo">
+        💡 <strong>Antes de empezar:</strong> si lo necesitas, repasa los contenidos en
+        <a href="conocer.html"><u>Conocer</u></a> y las actividades en
+        <a href="practicar.html"><u>Practicar</u></a>.
+      </div>
+      <div class="formulario">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdhtq63uuf3fpTqvG31jNaUGc3BVfLiqjU76yyMlgC8Ob-obA/viewform?embedded=true"
+                title="Quiz de Conocimientos Ambientales"
+                loading="lazy">Cargando…</iframe>
+      </div>
+      <p class="nota-recurso">¿No carga? <a href="https://docs.google.com/forms/d/e/1FAIpQLSdhtq63uuf3fpTqvG31jNaUGc3BVfLiqjU76yyMlgC8Ob-obA/viewform?usp=publish-editor" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.</p>
+    </section>
+
+    <!-- Cuestionario de Satisfacción -->
+    <section class="evaluacion" id="satisfaccion">
+      <h2>⭐ Cuestionario de Satisfacción del OVA</h2>
+      <p>
+        Ahora queremos conocer tu opinión. Evalúa tu experiencia de uso del OVA <strong>ECOESPERANZA</strong>:
+        qué tan fácil fue navegar, si los contenidos y actividades te parecieron claros y qué podríamos mejorar.
+        Responde con sinceridad, ¡tus respuestas son muy valiosas!
+      </p>
+      <div class="formulario">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeBWDfHum2kgaQAzE9Wm3seAGwO6uPsQVkYMTnmqmu1xWGc-A/viewform?embedded=true"
+                title="Cuestionario de Satisfacción del OVA"
+                loading="lazy">Cargando…</iframe>
+      </div>
+      <p class="nota-recurso">¿No carga? <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBWDfHum2kgaQAzE9Wm3seAGwO6uPsQVkYMTnmqmu1xWGc-A/viewform?usp=dialog" target="_blank" rel="noopener">Ábrelo en una pestaña nueva</a>.</p>
+    </section>
+
+    <!-- CONTINUAR EN EL OVA: enlaces a Conocer y Practicar -->
+    <section class="siguiente">
+      <h2>¡Gracias por participar! 🌎</h2>
+      <p>Si quieres reforzar algo, vuelve a los otros módulos del OVA.</p>
+      <div class="botones">
+        <a href="conocer.html">◀ Ir a Conocer</a>
+        <a href="practicar.html">Ir a Practicar ▶</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    ECOESPERANZA · Objeto Virtual de Aprendizaje · Cuidemos el planeta 🍊
+  </footer>
+
+</body>
+</html>

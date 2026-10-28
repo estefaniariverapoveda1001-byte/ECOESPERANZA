@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ECOESPERANZA</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(#12a9e8, #b8efff 45%, #62b83d);
+}
+
+/* ================= HEADER ================= */
+
+header {
+    position: relative;
+    z-index: 500;
+    height: 110px;
+    background: #06459b;
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    color: white;
+}
+
+.menu {
+    font-size: 48px;
+    cursor: pointer;
+    margin-right: 40px;
+}
+
+.logo {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: white;
+    overflow: hidden;
+    margin-right: 18px;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nombre {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.separador {
+    font-size: 40px;
+    margin: 0 25px;
+}
+
+.lema {
+    color: #59d5ff;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.inicio {
+    margin-left: auto;
+    font-size: 42px;
+    cursor: pointer;
+}
+
+/* ================= MENÚ DESPLEGABLE ================= */
+
+#menuLateral {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 240px;
+    flex-direction: column;
+    background: #06459b;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    border-radius: 0 0 16px 0;
+    overflow: hidden;
+}
+
+#menuLateral.abierto {
+    display: flex;
+}
+
+#menuLateral a {
+    color: white;
+    text-decoration: none;
+    padding: 16px 26px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: background .2s;
+}
+
+#menuLateral a:hover {
+    background: #0868d0;
+}
+
+/* ================= TITULO ================= */
+
+main {
+    padding: 30px 5%;
+}
+
+.titulo {
+    text-align: center;
+    font-size: 65px;
+    color: #063d89;
+    font-weight: 900;
+
+    text-shadow:
+        3px 3px white,
+        -2px -2px white,
+        0 0 12px white;
+}
+
+.subtitulo {
+    text-align: center;
+    color: #073d89;
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.lineas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.lineas div {
+    width: 65px;
+    height: 3px;
+    background: #073d89;
+}
+
+/* ================= LOGO CENTRAL ================= */
+
+.logo-central {
+    width: 125px;
+    height: 125px;
+    margin: 15px auto 20px;
+    border-radius: 50%;
+    background: white;
+    border: 5px solid #111;
+    overflow: hidden;
+}
+
+.logo-central img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ================= TRES MENUS ================= */
+
+.menus {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 25px;
+    max-width: 1300px;
+    margin: auto;
+}
+
+/* ================= TARJETAS ================= */
+
+.tarjeta {
+    width: 33.33%;
+    min-height: 500px;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Encabezado */
+
+.encabezado {
+    height: 115px;
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    color: white;
+}
+
+.encabezado.verde {
+    background: linear-gradient(90deg,#079d24,#20c928);
+}
+
+.encabezado.azul {
+    background: linear-gradient(90deg,#075ac8,#087ce8);
+}
+
+.encabezado.naranja {
+    background: linear-gradient(90deg,#f47700,#ff9c00);
+}
+
+.icono {
+    width: 70px;
+    height: 70px;
+    background: white;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 38px;
+    margin-right: 18px;
+}
+
+.encabezado h2 {
+    font-size: 32px;
+}
+
+.encabezado p {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+/* ================= CONTENIDO ================= */
+
+.contenido {
+    padding: 22px 38px;
+    flex: 1;
+}
+
+.descripcion {
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 18px;
+}
+
+.opcion {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 17px 0;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 8px;
+
+    transition: 0.2s;
+}
+
+.opcion:hover {
+    background: #eeeeee;
+    transform: translateX(5px);
+}
+
+.opcion-icono {
+    width: 45px;
+    font-size: 32px;
+    text-align: center;
+}
+
+/* ================= BOTONES ================= */
+
+.boton-container {
+    text-align: center;
+    padding: 0 20px 25px;
+}
+
+.boton {
+    border: none;
+    border-radius: 30px;
+
+    color: white;
+
+    font-size: 19px;
+    font-weight: bold;
+
+    padding: 14px 32px;
+
+    min-width: 210px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.boton:hover {
+    transform: scale(1.06);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+}
+
+.boton-verde {
+    background: #16aa2c;
+}
+
+.boton-azul {
+    background: #0868d0;
+}
+
+.boton-naranja {
+    background: #ff8500;
+}
+
+.flecha {
+    margin-left: 18px;
+    font-size: 25px;
+}
+
+/* ================= VENTANA DE INTERACCION ================= */
+
+#panel {
+    display: none;
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+    max-width: 600px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+
+    z-index: 1000;
+}
+
+#panel h2 {
+    color: #06459b;
+    margin-bottom: 15px;
+}
+
+#panel button {
+    margin-top: 20px;
+
+    background: #06459b;
+    color: white;
+
+    border: none;
+
+    padding: 12px 30px;
+
+    border-radius: 25px;
+
+    cursor: pointer;
+}
+
+/* Fondo oscuro */
+
+#fondo {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.5);
+
+    z-index: 999;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    height: 70px;
+
+    background: #06459b;
+
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: bold;
+}
+
+/* ================= CELULAR ================= */
+
+@media(max-width: 900px) {
+
+    header {
+        padding: 0 15px;
+        height: 80px;
+    }
+
+    .menu {
+        font-size: 35px;
+        margin-right: 15px;
+    }
+
+    .logo {
+        width: 52px;
+        height: 52px;
+    }
+
+    .nombre {
+        font-size: 21px;
+    }
+
+    .lema,
+    .separador {
+        display: none;
+    }
+
+    .inicio {
+        font-size: 30px;
+    }
+
+    .titulo {
+        font-size: 42px;
+    }
+
+    .subtitulo {
+        font-size: 25px;
+    }
+
+    .menus {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tarjeta {
+        width: 100%;
+        max-width: 550px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= ENCABEZADO ================= -->
+
+<header>
+
+    <div class="menu" onclick="abrirMenu()">
+        ☰
+    </div>
+
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+    </div>
+
+    <div class="nombre">
+        ECOESPERANZA
+    </div>
+
+    <div class="separador">|</div>
+
+    <div class="lema">
+        innovar para preservar
+    </div>
+
+    
+    <!-- Menú desplegable: navegación entre las secciones del OVA -->
+    <nav id="menuLateral" aria-label="Menú principal">
+        <a href="index.html">🏠 Inicio</a>
+        <a href="conocer.html">🌱 Conocer</a>
+        <a href="practicar.html">🎮 Practicar</a>
+        <a href="evaluar.html">📋 Evaluar</a>
+    </nav>
+
+</header>
+
+
+<!-- ================= CUERPO ================= -->
+
+<main>
+
+    <h1 class="titulo">
+        ECOESPERANZA
+    </h1>
+
+    <div class="lineas">
+
+        <div></div>
+
+        <h2 class="subtitulo">
+            innovar para preservar
+        </h2>
+
+        <div></div>
+
+    </div>
+
+
+    <!-- LOGO -->
+
+    <div class="logo-central">
+
+        <img src="logo.png" alt="EcoEsperanza">
+
+    </div>
+
+
+    <!-- ================= TRES MENUS ================= -->
+
+    <section class="menus">
+
+
+        <!-- ===== CONOCER ===== -->
+
+        <article class="tarjeta">
+
+            <div class="encabezado verde">
+
+                <div class="icono">
+                    🌱
+                </div>
+
+                <div>
+                    <h2>Conocer</h2>
+                    <p>Explora y aprende</p>
+                </div>
+
+            </div>
+
+
+            <div class="contenido">
+
+                <p class="descripcion">
+                    Descubre información sobre el medio
+                    ambiente y cómo cuidarlo.
+                </p>
+
+
+                <div class="opcion"
+                     onclick="ir('conocer.html#cambio-climatico')">
+
+                    <span class="opcion-icono">☀️</span>
+
+                    <span>
+                        Cambio climático
+                    </span>
+
+                </div>
+
+
+                <div class="opcion"
+                     onclick="ir('conocer.html#fauna-flora')">
+
+                    <span class="opcion-icono">🌳</span>
+
+                    <span>
+                        Fauna y flora
+                    </span>
+
+                </div>
+
+
+                <div class="opcion"
+                     onclick="ir('conocer.html#contaminacion')">
+
+                    <span class="opcion-icono">♻️</span>
+
+                    <span>
+                        Contaminación
+                    </span>
+
+                </div>
+
+                <div class="opcion"
+                     onclick="ir('conocer.html#separacion-residuos')">
+
+                    <span class="opcion-icono">🗂️</span>
+
+                    <span>
+                        Separación de residuos
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="boton-container">
+
+                <button
+                    class="boton boton-verde"
+                    onclick="conocer()">
+
+                    VER MÁS
+                    <span class="flecha">→</span>
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- ===== PRACTICAR ===== -->
+
+        <article class="tarjeta">
+
+            <div class="encabezado azul">
+
+                <div class="icono">
+                    🎮
+                </div>
+
+                <div>
+                    <h2>Practicar</h2>
+                    <p>Juega y aplica</p>
+                </div>
+
+            </div>
+
+
+            <div class="contenido">
+
+                <p class="descripcion">
+                    Realiza actividades interactivas
+                    para poner a prueba lo que sabes.
+                </p>
+
+
+                <div class="opcion"
+                     onclick="ir('practicar.html#juegos')">
+
+                    <span class="opcion-icono">🧩</span>
+
+                    <span>
+                        Juegos educativos
+                    </span>
+
+                </div>
+
+
+                <div class="opcion"
+                     onclick="ir('practicar.html#retos')">
+
+                    <span class="opcion-icono">🌱</span>
+
+                    <span>
+                        Retos ambientales
+                    </span>
+
+                </div>
+
+
+                <div class="opcion"
+                     onclick="ir('practicar.html#dinamicas')">
+
+                    <span class="opcion-icono">💡</span>
+
+                    <span>
+                        Actividades dinámicas
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="boton-container">
+
+                <button
+                    class="boton boton-azul"
+                    onclick="practicar()">
+
+                    VER MÁS
+                    <span class="flecha">→</span>
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- ===== EVALUAR ===== -->
+
+        <article class="tarjeta">
+
+            <div class="encabezado naranja">
+
+                <div class="icono">
+                    📋
+                </div>
+
+                <div>
+                    <h2>Evaluar</h2>
+                    <p>Comprueba tu aprendizaje</p>
+                </div>
+
+            </div>
+
+
+            <div class="contenido">
+
+                <p class="descripcion">
+                    Responde preguntas y evalúa
+                    lo que has aprendido.
+                </p>
+
+
+                <div class="opcion"
+                     onclick="ir('evaluar.html#quiz')">
+
+                    <span class="opcion-icono">📋</span>
+
+                    <span>
+                        Quiz de conocimientos
+                    </span>
+
+                </div>
+
+
+                <div class="opcion"
+                     onclick="ir('evaluar.html#satisfaccion')">
+
+                    <span class="opcion-icono">💬</span>
+
+                    <span>
+                        Cuestionario de satisfaccion
+                    </span>
+
+                </div>
+
+
+
+            </div>
+
+
+            <div class="boton-container">
+
+                <button
+                    class="boton boton-naranja"
+                    onclick="evaluar()">
+
+                    VER MÁS
+                    <span class="flecha">→</span>
+
+                </button>
+
+            </div>
+
+        </article>
+
+    </section>
+
+</main>
+
+
+<!-- ================= VENTANA ================= -->
+
+<div id="fondo" onclick="cerrarPanel()"></div>
+
+<div id="panel">
+
+    <h2 id="tituloPanel">
+        ECOESPERANZA
+    </h2>
+
+    <p id="textoPanel">
+        Bienvenido a EcoEsperanza.
+    </p>
+
+    <button onclick="cerrarPanel()">
+        CERRAR
+    </button>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    ECOESPERANZA © 2025
+    &nbsp; | &nbsp;
+    Objeto Virtual de Aprendizaje
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+// Navega a otra página (o sección) del OVA
+function ir(url) {
+    window.location.href = url;
+}
+
+// Botones VER MÁS de cada tarjeta
+function conocer()   { ir('conocer.html'); }
+function practicar() { ir('practicar.html'); }
+function evaluar()   { ir('evaluar.html'); }
+
+
+// Ventana emergente informativa (se usa en "Logros y progreso")
+function mostrar(opcion) {
+
+    document.getElementById("tituloPanel").innerText = opcion;
+
+    document.getElementById("textoPanel").innerText =
+        "Has seleccionado: " + opcion +
+        ". Aquí podrás encontrar contenido educativo, actividades y recursos sobre este tema.";
+
+    document.getElementById("fondo").style.display = "block";
+
+    document.getElementById("panel").style.display = "block";
+}
+
+
+function cerrarPanel() {
+
+    document.getElementById("fondo").style.display = "none";
+
+    document.getElementById("panel").style.display = "none";
+}
+
+
+// Botón 🏠: vuelve al inicio de la página
+function inicio() {
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// Abre o cierra el menú desplegable ☰
+function abrirMenu() {
+
+    document.getElementById("menuLateral").classList.toggle("abierto");
+
+}
+
+</script>
+
+</body>
+</html>
